@@ -4,7 +4,7 @@ const Pms = require('../../models/Pms')
 const PmsToAPI = require('../../dtos/PmsToAPI')
 const { Sequelize } = require('sequelize')
 
-async function updateDb(res, res) {
+async function updateDb() {
 	let now = new Date()
 
 	for (const key in db) {
@@ -18,12 +18,6 @@ async function updateDb(res, res) {
 	}
 	let after = new Date()
 	console.log(`Update DB: ` + (after - now) / 1000)
-
-	try {
-		return res.json({ message: 'Banco de dados atualizado' })
-	} catch (error) {
-		return res.status(500).json({ message: 'Erro ao atualizar banco de dados' })
-	}
 }
 
 async function updateDbValues() {

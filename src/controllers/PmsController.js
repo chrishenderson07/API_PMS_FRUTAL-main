@@ -59,7 +59,6 @@ class PmsController {
 		try {
 			await pmsService.calcAll()
 			let variaveis = await pmsService.obterVars()
-			console.log(variaveis)
 			return res.json(variaveis)
 		} catch (error) {
 			console.log(error)
@@ -89,7 +88,7 @@ class PmsController {
 	//     }
 	// }
 
-	// inativar(req, res) {}
+	inativar(req, res) {}
 }
 
 module.exports = PmsController

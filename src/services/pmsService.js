@@ -8,8 +8,8 @@ const {
 const Pms = require('../models/Pms')
 const { calcBME } = require('../Pms/Calculos/calcBME')
 
-async function obterPorCodigo(id) {
-	let pmsVar = await Pms.findOne({ where: { id } })
+async function obterPorCodigo(codigo) {
+	let pmsVar = await Pms.findOne({ where: { codigo } })
 	if (!pmsVar) {
 		throw new NaoEncontradoErro(
 			404,
