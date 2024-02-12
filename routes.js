@@ -43,7 +43,9 @@ routes.get('/updateDb', db.updateDb)
 routes.get('/updateDbValues', db.updateDbValues)
 routes.get('/createDbEnum', db.createDbEnum)
 
-routes.get('/getAll', pmsController.getAll)
+routes.get('/getAll', pmsController.getAll, {
+	timeout: 60000,
+})
 routes.get('/getAllFromKey', pmsController.obterVarsFromKey)
 // routes.get('/teste/:pressao', steam.Teste)
 routes.get('/home', (req, res) => {
