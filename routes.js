@@ -11,6 +11,22 @@ const calc = require('./src/Pms/Calculos/calcBME')
 const db = require('./src/Pms/db/funcsDb')
 const steam = require('./src/Pms/Calculos/modulos/steamTables')
 
+function timeoutMiddleware(req, res, next) {
+	// Definindo o tempo limite em milissegundos (por exemplo, 30 segundos)
+	const timeout = 60000
+
+	// Configurando o timeout para a requisição
+	req.setTimeout(timeout, () => {
+		// Se a requisição exceder o tempo limite, retornar um erro de timeout
+		const err = new Error('Timeout de requisição excedido')
+		err.status = 408 // HTTP 408: Request Timeout
+		next(err)
+	})
+
+	// Continuar com o próximo middleware
+	next()
+}
+
 // routes.use(async(req, res, next) => {
 //     const { authorization } = req.headers;
 //     let autenticado = await usuarioService.validarAutenticacao(authorization)
@@ -43,9 +59,7 @@ routes.get('/updateDb', db.updateDb)
 routes.get('/updateDbValues', db.updateDbValues)
 routes.get('/createDbEnum', db.createDbEnum)
 
-routes.get('/getAll', pmsController.getAll, {
-	timeout: 60000,
-})
+routes.get('/getAll', timeoutMiddleware, pmsController.getAll)
 routes.get('/getAllFromKey', pmsController.obterVarsFromKey)
 // routes.get('/teste/:pressao', steam.Teste)
 routes.get('/home', (req, res) => {
