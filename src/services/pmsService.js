@@ -1,61 +1,73 @@
-const { Sequelize } = require('sequelize');
-const PmsDTO = require('../dtos/PmsDTO');
-const { NaoAutorizadoErro, NaoEncontradoErro, AplicacaoErro } = require('../erros/typeErros');
+const { Sequelize } = require('sequelize')
+const PmsDTO = require('../dtos/PmsDTO')
+const {
+	NaoAutorizadoErro,
+	NaoEncontradoErro,
+	AplicacaoErro,
+} = require('../erros/typeErros')
 const Pms = require('../models/Pms')
 const { calcBME } = require('../Pms/Calculos/calcBME')
 
-
-async function obterPorCodigo(codigo){
-    let pmsVar = await Pms.findOne({where: { codigo }});
-    if (!pmsVar){
-        throw new NaoEncontradoErro(404, "Não foi possível encontrar a variável pelo " + codigo);
-    }
-    return pmsVar;
+async function obterPorCodigo(id) {
+	let pmsVar = await Pms.findOne({ where: { id } })
+	if (!pmsVar) {
+		throw new NaoEncontradoErro(
+			404,
+			'Não foi possível encontrar a variável pelo ' + codigo,
+		)
+	}
+	return pmsVar
 }
 
-async function getValue(codigo){
-    let pmsVar = await Pms.findOne({where: { codigo }});
-    if (!pmsVar){
-        throw new NaoEncontradoErro(404, "Não foi possível encontrar a variável pelo " + codigo);
-    }
-    return pmsVar.valor;
+async function getValue(codigo) {
+	let pmsVar = await Pms.findOne({ where: { codigo } })
+	if (!pmsVar) {
+		throw new NaoEncontradoErro(
+			404,
+			'Não foi possível encontrar a variável pelo ' + codigo,
+		)
+	}
+	return pmsVar.valor
 }
 
-async function setValue(pmsDTO){
-    let pmsVar = await Pms.findOne({where: { codigo: pmsDTO.codigo }});
-    if(!pmsVar){
-        throw new NaoEncontradoErro(404, "Não foi possível encontrar a variável pelo " + codigo);
-    }
-    pmsVar = await Pms.update(pmsDTO, 
-        { where: { codigo: pmsDTO.codigo }}
-    );
+async function setValue(pmsDTO) {
+	let pmsVar = await Pms.findOne({ where: { codigo: pmsDTO.codigo } })
+	if (!pmsVar) {
+		throw new NaoEncontradoErro(
+			404,
+			'Não foi possível encontrar a variável pelo ' + codigo,
+		)
+	}
+	pmsVar = await Pms.update(pmsDTO, { where: { codigo: pmsDTO.codigo } })
 
-    if(!pmsVar || !pmsVar[0]){
-        throw new AplicacaoErro(500, 'Falaha ao atualizar a variável com código ' + pmsVar.codigo);
-    }
+	if (!pmsVar || !pmsVar[0]) {
+		throw new AplicacaoErro(
+			500,
+			'Falaha ao atualizar a variável com código ' + pmsVar.codigo,
+		)
+	}
 
-    // calcbme.calcBME();
+	// calcbme.calcBME();
 
-    return pmsDTO;
+	return pmsDTO
 }
 
-async function obterVars(){
-    let variaveis = await Pms.findAll()
-    return variaveis.map(v => new PmsDTO(v) || [])
+async function obterVars() {
+	let variaveis = await Pms.findAll()
+	return variaveis.map((v) => new PmsDTO(v) || [])
 }
 
-async function obterVarsFromKey(key){
-    let variaveis = await Pms.findAll({where: {codigo: {[Sequelize.Op.iLike]: '%' + key + '%'} }})
-    return variaveis.map(v => new PmsDTO(v) || [])
+async function obterVarsFromKey(key) {
+	let variaveis = await Pms.findAll({
+		where: { codigo: { [Sequelize.Op.iLike]: '%' + key + '%' } },
+	})
+	return variaveis.map((v) => new PmsDTO(v) || [])
 }
 
-async function calcAll(){
-    await calcBME();
-    console.log('calcBME')
+async function calcAll() {
+	await calcBME()
+	console.log('calcBME')
 }
-
-
-
 
 // async function cadastrar(usuarioDTO){
 //     usuarioDTO.senha = geradorToken.gerarHashDaSenha(usuarioDTO.senha);
@@ -68,8 +80,6 @@ async function calcAll(){
 //     dto.perfil = new PerfilDTO(await Perfil.findByPk(dto.idPerfil));
 //     return dto;
 // }
-
-
 
 // function _criarCredencial(usuario){
 
@@ -95,10 +105,10 @@ async function calcAll(){
 // }
 
 module.exports = {
-    obterPorCodigo,
-    setValue,
-    getValue,
-    calcAll,
-    obterVars,
-    obterVarsFromKey
+	obterPorCodigo,
+	setValue,
+	getValue,
+	calcAll,
+	obterVars,
+	obterVarsFromKey,
 }
