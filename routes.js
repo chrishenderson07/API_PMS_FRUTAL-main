@@ -45,7 +45,7 @@ routes.get('/createDbEnum', db.createDbEnum)
 
 routes.get('/getAll', pmsController.getAll)
 routes.get('/getAllFromKey', pmsController.obterVarsFromKey)
-routes.get('/teste/:pressao', steam.Teste)
+// routes.get('/teste/:pressao', steam.Teste)
 routes.get('/home', (req, res) => {
 	res.send('Hello World!')
 })
