@@ -4,7 +4,7 @@
 	"description": "Api Criada para o sistema gestao service",
 	"main": "app.js",
 	"scripts": {
-		"start": "yarn sequelize db:migrate && node app.js",
+		"start": "yarn sequelize db:migrate && yarn sequelize db:migrate:status && node app.js",
 		"executar-migration": "yarn sequelize db:migrate",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"criar-banco": "yarn sequelize db:create",
