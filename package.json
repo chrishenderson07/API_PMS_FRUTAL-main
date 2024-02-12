@@ -1,32 +1,32 @@
 {
-  "name": "gesta0-service",
-  "version": "1.0.0",
-  "description": "Api Criada para o sistema gestao service",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "criar-banco": "yarn sequelize db:create",
-    "criar-migration": "yarn sequelize migration:create --name=criar-tabela-xyz",
-    "executar-migration": "yarn sequelize db:migrate",
-    "desfazer-migration": "yarn sequelize db:migrate:undo"
-  },
-  "author": "Eduardo Almeida",
-  "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "fs": "^0.0.1-security",
-    "git": "^0.1.5",
-    "md5": "^2.3.0",
-    "pg": "^8.11.3",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.35.1",
-    "sequelize-cli": "^6.6.2",
-    "yarn": "^1.22.21"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.3"
-  }
+	"name": "gesta0-service",
+	"version": "1.0.0",
+	"description": "Api Criada para o sistema gestao service",
+	"main": "app.js",
+	"scripts": {
+		"start": "yarn sequelize db:migrate && node app.js",
+		"executar-migration": "yarn sequelize db:migrate",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"criar-banco": "yarn sequelize db:create",
+		"criar-migration": "yarn sequelize migration:create --name=criar-tabela-xyz",
+		"desfazer-migration": "yarn sequelize db:migrate:undo"
+	},
+	"author": "Eduardo Almeida",
+	"license": "ISC",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2",
+		"fs": "^0.0.1-security",
+		"git": "^0.1.5",
+		"md5": "^2.3.0",
+		"pg": "^8.11.3",
+		"pg-hstore": "^2.3.4",
+		"sequelize": "^6.35.1",
+		"sequelize-cli": "^6.6.2",
+		"yarn": "^1.22.21"
+	},
+	"devDependencies": {
+		"nodemon": "^3.0.3"
+	}
 }
